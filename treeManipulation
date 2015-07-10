@@ -1,0 +1,33 @@
+
+
+###all these functions require phytools###
+###species must be in quotes and contain the full name, ie "Alca_torda"###
+###tree must be a set of trees of class "multiPhylo"###
+###To use with add.family.to.tip, add the family name to species ie "Alcidae_Alca_torda"###
+
+
+### Add a species randomly to its genus, halfway down the branch it connects to, with different placements across trees###
+
+ newTree<-lapply(tree,add.species.to.genus,species,where="random") ###
+
+
+
+###To add species randomly in their family (as opposed to genus; this is most helpful for species in extinct genera)###
+###Taxa is a list of taxa defining the family imported from a .csv file###
+###family must be in quotes###
+
+add.family.to.tip<-function(tree,family,taxa){
+	sp<-as.vector(taxa[,1])
+	taxon<-as.list(sp)
+	for (i in 1:length(taxon))
+	tree$tip.label[tree$tip.label==taxon[i]]<-as.character(paste(family,taxon[[i]],sep="_"))
+	return(tree)
+}
+
+
+###This function relies on the previous function but iterates ovr multiple trees###
+ newTree<-lapply(tree,add.family.to.tip,family,taxa) 
+
+
+### family names can then be removed from tips in TextWrangler with the regular expression: ###
+### find \w+_(\w+_\w+) replace with \1 ###
