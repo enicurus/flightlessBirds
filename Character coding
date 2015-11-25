@@ -1,0 +1,19 @@
+#Taxon list function
+
+#input data frame with heirachical taxa
+#input higher-level taxon name
+#output is a list of species in that taxon
+
+#Thanks to François Michonneu for help with development
+#Author: Ryan S. Terrill ornithoterrill@gmail.com
+
+
+
+ 
+
+CharCoder<-function(data,taxon,character){
+			x<-grep(taxon,data[,2])
+			for (i in x){
+			data[[character]][i]<-1
+				}
+data
